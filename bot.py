@@ -1,4 +1,5 @@
 ﻿import requests
+import json
 import telebot
 
 token = '479204960:AAHVGrW6jzi1xSegLtAFOlpII9ouy7tkJFg'
@@ -8,7 +9,7 @@ def getNkoInfo(inn):
     info = {}
     nko_url = 'http://openngo.ru/api/organizations/?inn='
     r_nko = requests.get(nko_url+inn)
-    data_nko = r_nko.json()
+    data_nko = json.loads(r_nko.text)
     
     if (data_nko['count'] == 0):        
         info['presence'] = False
@@ -33,7 +34,7 @@ def getNkoInfo(inn):
         
         smi_url = 'http://openmassmedia.ru/api/founders/?inn='
         r_smi = requests.get(smi_url+inn)
-        data_smi = r_smi.json()
+        data_smi = json.loads(r_smi.text)
         
         info['media'] = {}
       
@@ -46,7 +47,7 @@ def getNkoInfo(inn):
         for regNumID in regNumIDs:
             smi_reg_url = 'http://openmassmedia.ru/api/media/?reg_num_id='
             r_smi_reg = requests.get(smi_reg_url+regNumID)
-            data_smi_reg = r_smi_reg.json()
+            data_smi_reg = json.loads(r_smi_reg.text)
             info['media'][data_smi_reg['results'][0]['name']] = {}
             if 'territory' in data_smi_reg['results'][0]:
                 info['media'][data_smi_reg['results'][0]['name']]['territory'] = data_smi_reg['results'][0]['territory']
