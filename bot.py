@@ -39,9 +39,10 @@ def getNkoInfo(inn):
         info['media'] = {}
       
         regNumIDs = []
-        if 'media' in data_smi['results'][0]:
-            for result in data_smi['results'][0]['media']:
-                regNumIDs.append(result['reg_num_id'])
+        if len(data_smi['results']) > 0:
+            if 'media' in data_smi['results'][0]:
+                for result in data_smi['results'][0]['media']:
+                    regNumIDs.append(result['reg_num_id'])
         
         for regNumID in regNumIDs:
             smi_reg_url = 'http://openmassmedia.ru/api/media/?reg_num_id='
@@ -54,7 +55,7 @@ def getNkoInfo(inn):
                 info['media'][data_smi_reg['results'][0]['name']]['langs'] = data_smi_reg['results'][0]['languages']
             if 'type' in data_smi_reg['results'][0]:
                 info['media'][data_smi_reg['results'][0]['name']]['type'] = data_smi_reg['results'][0]['type']['name']
-            if 'website' in data_smi_reg['results'][0]:
+            if ('website' in data_smi_reg['results'][0]) and not (type(data_smi_reg['results'][0]['website']) == type(None)) :
                 info['media'][data_smi_reg['results'][0]['name']]['website'] = data_smi_reg['results'][0]['website']
             info['media'][data_smi_reg['results'][0]['name']]['url'] = "https://openmassmedia.ru/media/{}/".format(regNumID)
             if 'founders' in data_smi_reg['results'][0]:
