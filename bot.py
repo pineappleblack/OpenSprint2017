@@ -1,4 +1,6 @@
-﻿import telebot
+﻿import requests
+import json
+import telebot
 
 token = '479204960:AAHVGrW6jzi1xSegLtAFOlpII9ouy7tkJFg'
 bot = telebot.TeleBot(token)
