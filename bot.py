@@ -5,8 +5,8 @@ bot = telebot.TeleBot(token)
 
 
 @bot.message_handler(content_types=["text"])
-def repeat_all_messages(message):
-    answer = "Спасибо за внимание ко мне. Я польщён из локалки"
+def repeat_all_messages(message): 
+    answer = "Введите одну из следующих команд: /innINFO - что-то, \n /allNKOSUM - что-то"
     bot.send_message(message.chat.id, answer)
 
 if __name__ == '__main__':
